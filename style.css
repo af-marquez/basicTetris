@@ -1,3 +1,7 @@
+.container{
+    display: flex;
+}
+
 /*Defines the overall size*/
 .grid{
     width: 200px;
@@ -17,4 +21,18 @@
 /*Defines how the shape of the pieces is*/
 .piece{
     background-color: teal;
+}
+
+.mini-grid{
+    margin-left: 30px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: slategray;
+}
+
+.mini-grid div{
+    height: 20px;
+    height: 20px;
 }

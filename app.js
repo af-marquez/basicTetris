@@ -138,4 +138,21 @@ document.addEventListener('DOMContentLoaded',() =>{
         current = pieces[random][currentRotation];
         draw();
     }
+
+    //show up-next piece in mini-grid
+    const displaySquares = document.querySelector('.mini-grid div');
+    const displayWidth = 4;
+    let displayIndex = 0;
+
+    //pieces without rotations
+    const upNextPieces = {
+        [1, displayWidth+1, displayWidth*2+1, 2], //L piece
+        [0, displayWidth, displayWidth+1, displayWidth*2+1], //Z piece
+        [1, displayWidth, displayWidth+1,displayWidth2], //T piece
+        [0, 1, displayWidth, displayWidth+1], //O piece
+        [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] //I piece
+    }
+
+    //display the shape in the mini-grid display
+    
 })
