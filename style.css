@@ -19,7 +19,7 @@
 }
 
 /*Defines how the shape of the pieces is*/
-.piece{
+.piece {
     background-color: teal;
 }
 
@@ -29,10 +29,10 @@
     height: 80px;
     display: flex;
     flex-wrap: wrap;
-    background-color: slategray;
+    background-color: yellow;
 }
 
 .mini-grid div{
     height: 20px;
-    height: 20px;
+    width: 20px;
 }

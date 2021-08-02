@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded',() =>{
     const scoreDisplay = document.querySelector('#score');
     const startBtn = document.querySelector('#startButton');
     const width = 10;
+    let nextRandom = 0;
+    let timerId;
 
     //Pieces   --  each array represents one rotation
     const lPiece = [
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded',() =>{
     }
 
     //make piece move down every second
-    timerId = setInterval(moveDown, 1000);
+    //timerId = setInterval(moveDown, 1000);
 
     //assign functions to keycodes   --  e == event
     function control(e) {
@@ -96,10 +98,12 @@ document.addEventListener('DOMContentLoaded',() =>{
         if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition +index].classList.add('taken'));
             //start a new piece falling
-            random = Math.floor(Math.random() * pieces.length);
+            random = nextRandom;
+            nextRandom = Math.floor(Math.random() * pieces.length);
             current = pieces[random][currentRotation];
             currentPosition = 4;
             draw();
+            displayShape();
         }
     }
 
@@ -139,20 +143,40 @@ document.addEventListener('DOMContentLoaded',() =>{
         draw();
     }
 
-    //show up-next piece in mini-grid
-    const displaySquares = document.querySelector('.mini-grid div');
+    //show up-next piece in mini-grid display
+    const displaySquares = document.querySelectorAll('.mini-grid div');
     const displayWidth = 4;
     let displayIndex = 0;
 
     //pieces without rotations
-    const upNextPieces = {
+    const upNextPieces = [
         [1, displayWidth+1, displayWidth*2+1, 2], //L piece
         [0, displayWidth, displayWidth+1, displayWidth*2+1], //Z piece
-        [1, displayWidth, displayWidth+1,displayWidth2], //T piece
+        [1, displayWidth, displayWidth+1,displayWidth+2], //T piece
         [0, 1, displayWidth, displayWidth+1], //O piece
         [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1] //I piece
-    }
+    ]
 
     //display the shape in the mini-grid display
-    
+    function displayShape(){
+        //remove any trace of pieces from the grid
+        displaySquares.forEach(square => {
+            square.classList.remove('piece');
+        });
+        upNextPieces[nextRandom].forEach( index => {displaySquares[displayIndex + index].classList.add('piece');
+        });
+    }
+
+    //add functionality to the button
+    startBtn.addEventListener('click', () => {
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        } else {
+          draw();
+          timerId = setInterval(moveDown, 1000);
+          nextRandom = Math.floor(Math.random() * pieces.length);
+          displayShape();
+        }
+      });
 })
